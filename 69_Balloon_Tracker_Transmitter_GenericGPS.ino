@@ -106,7 +106,7 @@ SoftwareSerial GPSserial(RXpin, TXpin);
 BME280 bme280_ext;
 LSM9DS1 lsm9ds1;
 File sdcard;
-SdFat sd;
+SdFat SD;
 
 
 uint32_t GPSstartms;                             //start time waiting for GPS to get a fix
@@ -200,7 +200,7 @@ void printBuffer(uint8_t *buffer, uint8_t size)
 void saveBuffer(uint8_t *buffer, uint8_t size)
 {
 
-  sdcard = sd.open(SD_FILENAME, FILE_WRITE);
+  sdcard = SD.open(SD_FILENAME, FILE_WRITE);
   if (!sdcard)
   {
     sendCommand(NoSD);
@@ -469,8 +469,8 @@ float readBatteryCurrent()
 
   int sensorValue = 0;
 
-  float sensitivity = -90.0 / 770.0; //90mA per 770mV. Inverted
-  float Vref = 1860; // Output voltage with no current: ~ 1950mV
+  float sensitivity = -90.0 / 80.0; //90mA per 770mV. Inverted
+  float Vref = 2435; // Output voltage with no current: ~ 1950mV
 
   for (int i = 0; i < avgSamples; i++)
   {
@@ -749,7 +749,7 @@ void setup()
     }
   }
 
-  if (!sd.begin(SD_CS))
+  if (!SD.begin(SD_CS))
   {
     Serial.println(F("SD card not found"));
     while (1)
@@ -758,7 +758,7 @@ void setup()
     }
   }
 
-  sdcard = sd.open("test.txt", FILE_WRITE);
+  sdcard = SD.open("test.txt", FILE_WRITE);
   if (!sdcard)
   {
     Serial.println(F("Error opening file"));
