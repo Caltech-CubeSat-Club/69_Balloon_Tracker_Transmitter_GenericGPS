@@ -102,10 +102,11 @@ SoftwareSerial GPSserial(RXpin, TXpin);
 #include <Wire.h>
 #include <SparkFunLSM9DS1.h>
 #include <SparkFunBME280.h>
-#include <SD.h>
+#include <SdFat.h>
 BME280 bme280_ext;
 LSM9DS1 lsm9ds1;
 File sdcard;
+SdFat sd;
 
 
 uint32_t GPSstartms;                             //start time waiting for GPS to get a fix
@@ -199,7 +200,7 @@ void printBuffer(uint8_t *buffer, uint8_t size)
 void saveBuffer(uint8_t *buffer, uint8_t size)
 {
 
-  sdcard = SD.open(SD_FILENAME, FILE_WRITE);
+  sdcard = sd.open(SD_FILENAME, FILE_WRITE);
   if (!sdcard)
   {
     sendCommand(NoSD);
@@ -748,7 +749,7 @@ void setup()
     }
   }
 
-  if (!SD.begin(SD_CS))
+  if (!sd.begin(SD_CS))
   {
     Serial.println(F("SD card not found"));
     while (1)
@@ -757,7 +758,7 @@ void setup()
     }
   }
 
-  sdcard = SD.open("test.txt", FILE_WRITE);
+  sdcard = sd.open("test.txt", FILE_WRITE);
   if (!sdcard)
   {
     Serial.println(F("Error opening file"));
