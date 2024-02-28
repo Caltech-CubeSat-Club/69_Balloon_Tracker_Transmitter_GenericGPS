@@ -36,14 +36,14 @@
 //**************************************************************************************************
 // 3) LoRa modem settings 
 //**************************************************************************************************
-  // carrier frequency:                   868.0 MHz
+  // carrier frequency:                   434.0 MHz
   // bit rate:                            300.0 kbps
   // frequency deviation:                 60.0 kHz
   // output power:                        17 dBm
   // preamble length:                     32 bits
 
 //Tracker mode
-const uint32_t TrackerFrequency = 445000000;     // carrier frequency in Hz
+const uint32_t TrackerFrequency = 434000000;     // carrier frequency in Hz
 const int8_t TrackerTXpower = 20;                //LoRa TX power in dBm
 
 const uint8_t TXBUFFER_SIZE = 128;               //defines the maximum size of the trasnmit buffer;
